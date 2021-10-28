@@ -31,10 +31,17 @@ function App() {
     })
       .then((response) => response.json())
       .then((aTodoItem) => {
-        console.log(aTodoItem)
         //sync create
-        setTodoItems([...todoItems, aTodoItem])
+        //this.setState([...todoItems, aTodoItem]) //preract
+        setTodoItems([...todoItems, aTodoItem]) //hooks
       })
+  }
+
+  function handleDeleteTodoItem(item) {
+    const updatedTodoItems = todoItems.filter(
+      (aTodoItem) => aTodoItem.id !== item.id,
+    )
+    setTodoItems([...updatedTodoItems])
   }
   //todoItems!=null
   return (
@@ -45,7 +52,13 @@ function App() {
       <div>
         {todoItems
           ? todoItems.map((todoItem) => {
-              return <TodoItem key={todoItem.id} data={todoItem} />
+              return (
+                <TodoItem
+                  key={todoItem.id}
+                  data={todoItem}
+                  emitDeleteTodoItem={handleDeleteTodoItem}
+                />
+              )
             })
           : 'loading data'}
       </div>

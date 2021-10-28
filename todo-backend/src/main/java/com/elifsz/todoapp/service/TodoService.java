@@ -42,4 +42,8 @@ public class TodoService {
 		todoItem.setTask("Task #" + todoItem.getId());
 		return todoItem;
 	}
+
+	public void deleteTodoItem(Long id) {
+		todoRepo.delete(id);
+	}
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 const TodoItem = (props) => {
+  const { emitDeleteTodoItem } = props
   //getter setter
   const [todoItem, setTodoItem] = useState(props.data)
 
@@ -31,8 +32,25 @@ const TodoItem = (props) => {
     //console.log('hey to the item just change',todoItem)
   }, [todoItem, isDirty])
 
+  /*function updateTask(e) {
+    setDirty(true) //for fetch and use effect
+    setTodoItem({ ...todoItem, task: e.target.value })
+  }*/
+
+  function deleteTodoItem() {
+    fetch(`http://localhost:8080/api/todoItems/${todoItem.id}`, {
+      method: 'DELETE', //update
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((response) => {
+        emitDeleteTodoItem(todoItem)
+      })
+  }
+
   return (
-    <>
+    <div>
       <input
         type="checkbox"
         checked={todoItem.isDone}
@@ -40,9 +58,26 @@ const TodoItem = (props) => {
           setDirty(true)
           setTodoItem({ ...todoItem, isDone: !todoItem.isDone })
         }}
-      />{' '}
-      <span>{todoItem.task}</span>;
-    </>
+      />
+      {todoItem.isDone ? (
+        <span style={{ textDecoration: 'line-through' }}>{todoItem.task}</span>
+      ) : (
+        <input
+          type="text"
+          value={todoItem.task}
+          onChange={(e) => {
+            setDirty(true) //for fetch and use effect
+            setTodoItem({ ...todoItem, task: e.target.value })
+          }}
+        />
+      )}
+      <span
+        style={{ marginLeft: '2rem', cursor: 'pointer' }}
+        onClick={() => emitDeleteTodoItem(todoItem)}
+      >
+        🗑️
+      </span>
+    </div>
   )
 }
 

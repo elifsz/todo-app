@@ -1,0 +1,10 @@
+version: '3'
+services:
+    todo-backend:
+      image: 17050111056/todo-backend.jar
+      ports:
+        ["8080:8080"]
+    todo-frontend:
+      image: 17050111056/todo-frontend
+      ports:
+        ["3000:3000"]

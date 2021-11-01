@@ -11,7 +11,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - Docker 
 
 ### UI
-![todo1](https://user-images.githubusercontent.com/44908865/139707912-c4d4ad4d-3581-4378-a247-5ee52a93b5f0.PNG)
+![ui](https://user-images.githubusercontent.com/44908865/139725158-3e8088fa-00fb-4085-acfd-e87fb53612a0.PNG)
 
 ### Swagger 
-![todoswagger](https://user-images.githubusercontent.com/44908865/139707919-7975280b-0771-42d2-9638-e90b5341840c.PNG)
+
+![swagger](https://user-images.githubusercontent.com/44908865/139725148-17388817-adbc-44d7-9950-b53f16dd43e8.PNG)

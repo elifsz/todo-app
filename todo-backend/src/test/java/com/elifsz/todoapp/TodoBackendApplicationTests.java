@@ -1,30 +1,45 @@
 package com.elifsz.todoapp;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.tomcat.util.http.fileupload.util.FileItemHeadersImpl;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.Rollback;
 
-import com.elifsz.todoapp.service.TodoService;
+import com.elifsz.todoapp.domain.TodoItem;
+import com.elifsz.todoapp.repository.TodoRepository;
+
 
 class TodoBackendApplicationTests {
 
-	@Autowired
-	TodoService service;
 	
-	//@Test
-	/*public void createTodoItemTest() {
-		TodoItem item =null;
+	@Test
+	public void createTodoItemTest() {
+		TodoItem item =new TodoItem();
+		item = new TodoItem("Task #" + item.getId(),false);
+
+		assertEquals(false, item.getIsDone());
+	}
+	
+	@Test
+	public void updateTodoItemTest() {
+		TodoItem item =new TodoItem();
 		item = new TodoItem("Task #" + item.getId(),false);
 		
-		Mockito.when(repo.save(item)).thenReturn(item);
-		assertEquals(item, service.createTodoItem());
-		
-	}*/
+		item.setIsDone(true);
+		assertEquals(true, item.getIsDone());
+	}
 	
-    @Test
-    public void testGet() {
-        assertEquals(false, service.createTodoItem().getIsDone());
-    }
-
+	@Test
+	@Rollback(value = false)
+	public void deleteTodoItemTest() {
+		TodoItem item = new TodoItem();
+		TodoRepository repo = new TodoRepository();		
+		repo.delete(item.getId());
+		assertThat(item.getId()).isNull(); 
+		assertThat(item.getIsDone()).isNull();
+		assertThat(item.getTask()).isNull();
+	}
+	
 }

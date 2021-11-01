@@ -8,21 +8,16 @@ function App() {
   const [todoItems, setTodoItems] = useState(null)
   //web hook
   useEffect(() => {
-    //do something on load
-    console.log('hey i have load')
-    //databaseden veri almak
     if (!todoItems) {
       fetch('http://localhost:8080/api/todoItems')
         .then((response) => response.json())
         .then((data) => {
-          console.log('Todo items list:', data)
           setTodoItems(data)
         })
     }
   }, [todoItems])
 
   function addNewTodoItem() {
-    //locahost dışı durumlarda nasıl yapılıyor
     fetch('http://localhost:8080/api/todoItems', {
       headers: {
         'content-type': 'application/json',
@@ -31,19 +26,31 @@ function App() {
     })
       .then((response) => response.json())
       .then((aTodoItem) => {
-        //sync create
-        //this.setState([...todoItems, aTodoItem]) //preract
         setTodoItems([...todoItems, aTodoItem]) //hooks
       })
   }
 
-  function handleDeleteTodoItem(item) {
+  /*function handleDeleteTodoItem(item) {
     const updatedTodoItems = todoItems.filter(
-      (aTodoItem) => aTodoItem.id !== item.id,
+      (aTodoItem) => aTodoItem.id !== item.id
     )
     setTodoItems([...updatedTodoItems])
+  }*/
+
+  function handleDeleteTodoItem(item){
+    fetch(`http://localhost:8080/api/todoItems/${item.id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+    .then((data) => {
+      const updatedTodoItems = todoItems.filter(
+        (aTodoItem) => aTodoItem.id !== item.id
+      )
+      setTodoItems([...updatedTodoItems])
+    })
   }
-  //todoItems!=null
   return (
     <div>
       <div>

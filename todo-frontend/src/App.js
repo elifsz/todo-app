@@ -30,13 +30,6 @@ function App() {
       })
   }
 
-  /*function handleDeleteTodoItem(item) {
-    const updatedTodoItems = todoItems.filter(
-      (aTodoItem) => aTodoItem.id !== item.id
-    )
-    setTodoItems([...updatedTodoItems])
-  }*/
-
   function handleDeleteTodoItem(item){
     fetch(`http://localhost:8080/api/todoItems/${item.id}`, {
       method: 'DELETE',

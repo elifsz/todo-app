@@ -1,16 +1,30 @@
 package com.elifsz.todoapp;
 
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.assertEquals;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.elifsz.todoapp.service.TodoService;
+
 class TodoBackendApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+	@Autowired
+	TodoService service;
+	
+	//@Test
+	/*public void createTodoItemTest() {
+		TodoItem item =null;
+		item = new TodoItem("Task #" + item.getId(),false);
+		
+		Mockito.when(repo.save(item)).thenReturn(item);
+		assertEquals(item, service.createTodoItem());
+		
+	}*/
+	
+    @Test
+    public void testGet() {
+        assertEquals(false, service.createTodoItem().getIsDone());
+    }
 
 }

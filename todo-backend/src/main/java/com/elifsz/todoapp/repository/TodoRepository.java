@@ -2,7 +2,6 @@ package com.elifsz.todoapp.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.elifsz.todoapp.domain.TodoItem;
 
 @Repository
-public class TodoRepository {
+public class TodoRepository{
 	private Long idCounter = (long) 0;
 	private List<TodoItem> todoItems = new ArrayList<>();
 
